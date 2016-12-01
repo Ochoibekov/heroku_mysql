@@ -12,21 +12,24 @@
 
 ActiveRecord::Schema.define(version: 20161122101225) do
 
-  create_table "abouts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.text     "description",      limit: 65535
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "abouts", force: :cascade do |t|
+    t.text     "description"
     t.string   "title"
     t.string   "meta_title"
     t.string   "meta_description"
     t.string   "meta_keywords"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
-  create_table "active_admin_comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
-    t.text     "body",          limit: 65535
-    t.string   "resource_id",                 null: false
-    t.string   "resource_type",               null: false
+    t.text     "body"
+    t.string   "resource_id",   null: false
+    t.string   "resource_type", null: false
     t.string   "author_type"
     t.integer  "author_id"
     t.datetime "created_at"
@@ -36,20 +39,20 @@ ActiveRecord::Schema.define(version: 20161122101225) do
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
   end
 
-  create_table "aids", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.text     "description",     limit: 65535
+  create_table "aids", force: :cascade do |t|
+    t.text     "description"
     t.integer  "status"
     t.integer  "user_id"
     t.integer  "post_id"
     t.integer  "organization_id"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.index ["organization_id"], name: "index_aids_on_organization_id", using: :btree
     t.index ["post_id"], name: "index_aids_on_post_id", using: :btree
     t.index ["user_id"], name: "index_aids_on_user_id", using: :btree
   end
 
-  create_table "friendly_id_slugs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
     t.integer  "sluggable_id",              null: false
     t.string   "sluggable_type", limit: 50
@@ -61,31 +64,31 @@ ActiveRecord::Schema.define(version: 20161122101225) do
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
   end
 
-  create_table "meta_tags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "meta_tags", force: :cascade do |t|
     t.string   "title"
     t.string   "keywords"
-    t.text     "description", limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
-  create_table "oblasts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "oblasts", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "organization_categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "organization_categories", force: :cascade do |t|
     t.string   "name"
-    t.text     "description", limit: 65535
+    t.text     "description"
     t.boolean  "active"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
-  create_table "organizations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "organizations", force: :cascade do |t|
     t.string   "name"
-    t.text     "description",              limit: 65535
+    t.text     "description"
     t.string   "keywords"
     t.string   "location"
     t.string   "address"
@@ -97,41 +100,41 @@ ActiveRecord::Schema.define(version: 20161122101225) do
     t.string   "url"
     t.integer  "organization_category_id"
     t.integer  "oblast_id"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.string   "slug"
     t.index ["oblast_id"], name: "index_organizations_on_oblast_id", using: :btree
     t.index ["organization_category_id"], name: "index_organizations_on_organization_category_id", using: :btree
     t.index ["slug"], name: "index_organizations_on_slug", unique: true, using: :btree
   end
 
-  create_table "post_categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "post_categories", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "post_comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.text     "body",       limit: 65535
+  create_table "post_comments", force: :cascade do |t|
+    t.text     "body"
     t.integer  "user_id"
     t.integer  "post_id"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_post_comments_on_post_id", using: :btree
     t.index ["user_id"], name: "index_post_comments_on_user_id", using: :btree
   end
 
-  create_table "posts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "title",                                         null: false
-    t.text     "body",             limit: 65535,                null: false
+  create_table "posts", force: :cascade do |t|
+    t.string   "title",                           null: false
+    t.text     "body",                            null: false
     t.string   "keywords"
-    t.boolean  "open",                           default: true
+    t.boolean  "open",             default: true
     t.integer  "organization_id"
     t.integer  "post_category_id"
     t.integer  "user_id"
-    t.boolean  "active",                         default: true
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
+    t.boolean  "active",           default: true
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.string   "slug"
     t.index ["organization_id"], name: "index_posts_on_organization_id", using: :btree
     t.index ["post_category_id"], name: "index_posts_on_post_category_id", using: :btree
@@ -139,7 +142,7 @@ ActiveRecord::Schema.define(version: 20161122101225) do
     t.index ["user_id"], name: "index_posts_on_user_id", using: :btree
   end
 
-  create_table "user_organizations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "user_organizations", force: :cascade do |t|
     t.integer  "role"
     t.boolean  "approved",        default: false
     t.integer  "user_id"
@@ -150,7 +153,7 @@ ActiveRecord::Schema.define(version: 20161122101225) do
     t.index ["user_id"], name: "index_user_organizations_on_user_id", using: :btree
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "phone"
     t.datetime "created_at",                             null: false
